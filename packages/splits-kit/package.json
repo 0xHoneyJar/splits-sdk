@@ -1,5 +1,5 @@
 {
-  "name": "@0xsplits/splits-kit",
+  "name": "@zksoju/splits-kit",
   "version": "1.0.0",
   "description": "UI Components for working with 0xSplits contracts",
   "main": "dist/index.js",

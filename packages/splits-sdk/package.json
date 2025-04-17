@@ -1,5 +1,5 @@
 {
-  "name": "@0xsplits/splits-sdk",
+  "name": "@zksoju/splits-sdk",
   "version": "5.0.0",
   "description": "SDK for the 0xSplits protocol",
   "main": "./dist/src/index.js",

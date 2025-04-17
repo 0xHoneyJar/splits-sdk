@@ -1,5 +1,5 @@
 {
-  "name": "@0xsplits/splits-sdk-react",
+  "name": "@zksoju/splits-sdk-react",
   "version": "3.0.0",
   "description": "React wrapper for the 0xSplits SDK",
   "main": "./dist/index.js",
