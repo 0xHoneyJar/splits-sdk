@@ -1,42 +1,6 @@
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  gnosis,
-  fantom,
-  bsc,
-  avalanche,
-  aurora,
-  base,
-  zora,
-  sepolia,
-  optimismSepolia,
-  baseSepolia,
-  zoraSepolia,
-  shape,
-  worldchain,
-} from 'viem/chains'
+import { berachain } from 'viem/chains'
 
-export const SupportedChainsList = [
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  gnosis,
-  fantom,
-  avalanche,
-  bsc,
-  aurora,
-  zora,
-  base,
-  sepolia,
-  optimismSepolia,
-  baseSepolia,
-  zoraSepolia,
-  shape,
-  worldchain,
-] as const
+export const SupportedChainsList = [berachain] as const
 
 type SupportedChain = (typeof SupportedChainsList)[number]
 export type SupportedChainId = SupportedChain['id']
@@ -62,124 +26,131 @@ type ChainInfo = {
 }
 
 export const CHAIN_INFO: ChainInfo = {
-  [mainnet.id]: {
-    label: 'Ethereum',
-    logoUrl: '/networks/ethereum_logo.svg',
+  [berachain.id]: {
+    label: 'Berachain',
+    logoUrl: '/networks/berachain_logo.svg',
     nativeCurrency: {
       symbol: 'ETH',
     },
   },
-  [polygon.id]: {
-    label: 'Polygon',
-    logoUrl: '/networks/polygon_logo.svg',
-    nativeCurrency: {
-      symbol: 'MATIC',
-    },
-  },
-  [optimism.id]: {
-    label: 'Optimism',
-    logoUrl: '/networks/optimism_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [arbitrum.id]: {
-    label: 'Arbitrum',
-    logoUrl: '/networks/arbitrum_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [gnosis.id]: {
-    label: 'Gnosis',
-    logoUrl: '/networks/gnosis_logo.svg',
-    nativeCurrency: {
-      symbol: 'xDai',
-    },
-  },
-  [fantom.id]: {
-    label: 'Fantom',
-    logoUrl: '/networks/fantom_logo.svg',
-    nativeCurrency: {
-      symbol: 'FTM',
-    },
-  },
-  [avalanche.id]: {
-    label: 'Avalanche',
-    logoUrl: '/networks/avalanche_logo.svg',
-    nativeCurrency: {
-      symbol: 'AVAX',
-    },
-  },
-  [bsc.id]: {
-    label: 'BSC',
-    logoUrl: '/networks/bsc_logo.svg',
-    nativeCurrency: {
-      symbol: 'BNB',
-    },
-  },
-  [aurora.id]: {
-    label: 'Aurora',
-    logoUrl: '/networks/aurora_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [zora.id]: {
-    label: 'Zora',
-    logoUrl: '/networks/zora_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [base.id]: {
-    label: 'Base',
-    logoUrl: '/networks/base_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
+  // [mainnet.id]: {
+  //   label: 'Ethereum',
+  //   logoUrl: '/networks/ethereum_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [polygon.id]: {
+  //   label: 'Polygon',
+  //   logoUrl: '/networks/polygon_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'MATIC',
+  //   },
+  // },
+  // [optimism.id]: {
+  //   label: 'Optimism',
+  //   logoUrl: '/networks/optimism_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [arbitrum.id]: {
+  //   label: 'Arbitrum',
+  //   logoUrl: '/networks/arbitrum_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [gnosis.id]: {
+  //   label: 'Gnosis',
+  //   logoUrl: '/networks/gnosis_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'xDai',
+  //   },
+  // },
+  // [fantom.id]: {
+  //   label: 'Fantom',
+  //   logoUrl: '/networks/fantom_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'FTM',
+  //   },
+  // },
+  // [avalanche.id]: {
+  //   label: 'Avalanche',
+  //   logoUrl: '/networks/avalanche_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'AVAX',
+  //   },
+  // },
+  // [bsc.id]: {
+  //   label: 'BSC',
+  //   logoUrl: '/networks/bsc_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'BNB',
+  //   },
+  // },
+  // [aurora.id]: {
+  //   label: 'Aurora',
+  //   logoUrl: '/networks/aurora_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [zora.id]: {
+  //   label: 'Zora',
+  //   logoUrl: '/networks/zora_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [base.id]: {
+  //   label: 'Base',
+  //   logoUrl: '/networks/base_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
 
-  [sepolia.id]: {
-    label: 'Sepolia',
-    logoUrl: '/networks/ethereum_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [optimismSepolia.id]: {
-    label: 'Optimism Sepolia',
-    logoUrl: '/networks/optimism_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [baseSepolia.id]: {
-    label: 'Base Sepolia',
-    logoUrl: '/networks/base.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [zoraSepolia.id]: {
-    label: 'Zora Sepolia',
-    logoUrl: '/networks/zora_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [shape.id]: {
-    label: 'Shape',
-    logoUrl: '/networks/shape_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
-  [worldchain.id]: {
-    label: 'World Chain',
-    logoUrl: '/networks/worldchain_logo.svg',
-    nativeCurrency: {
-      symbol: 'ETH',
-    },
-  },
+  // [sepolia.id]: {
+  //   label: 'Sepolia',
+  //   logoUrl: '/networks/ethereum_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [optimismSepolia.id]: {
+  //   label: 'Optimism Sepolia',
+  //   logoUrl: '/networks/optimism_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [baseSepolia.id]: {
+  //   label: 'Base Sepolia',
+  //   logoUrl: '/networks/base.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [zoraSepolia.id]: {
+  //   label: 'Zora Sepolia',
+  //   logoUrl: '/networks/zora_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [shape.id]: {
+  //   label: 'Shape',
+  //   logoUrl: '/networks/shape_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
+  // [worldchain.id]: {
+  //   label: 'World Chain',
+  //   logoUrl: '/networks/worldchain_logo.svg',
+  //   nativeCurrency: {
+  //     symbol: 'ETH',
+  //   },
+  // },
 }

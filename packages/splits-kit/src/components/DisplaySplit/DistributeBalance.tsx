@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Split } from '@0xsplits/splits-sdk'
 import {
   useDistributeToken,
@@ -8,14 +7,15 @@ import {
   useWithdrawWarehouse,
 } from '@0xsplits/splits-sdk-react'
 import { RequestError } from '@0xsplits/splits-sdk-react/dist/types'
+import { useEffect } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
 
-import { displayBigNumber } from '../../utils/display'
-import Tooltip from '../util/Tooltip'
 import { CHAIN_INFO, SupportedChainId } from '../../constants/chains'
-import Button from '../util/Button'
 import { Balance } from '../../types'
+import { displayBigNumber } from '../../utils/display'
+import Button from '../util/Button'
+import Tooltip from '../util/Tooltip'
 
 function DistributeBalance({
   chainId,
@@ -49,7 +49,11 @@ function DistributeBalance({
   } = useDistributeTokenV2()
   const { withdrawFundsCalldata } = useWithdrawFunds()
   const { withdrawWarehouseCalldata } = useWithdrawWarehouse()
-  const { isConnected, address: connectedAddress, chain } = useAccount()
+  const {
+    isConnected,
+    address: connectedAddress,
+    chainId: chain,
+  } = useAccount()
 
   useEffect(() => {
     if (error) {
@@ -147,7 +151,7 @@ function DistributeBalance({
     statusV2 === 'txInProgress' ||
     multicallStatus === 'pendingApproval' ||
     multicallStatus === 'txInProgress'
-  const isWrongChain = chain && chainId !== chain.id
+  const isWrongChain = chainId !== chain
   const isDisabled = !isConnected || isWrongChain
   return (
     <div className="py-1 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 hover:cursor-pointer">

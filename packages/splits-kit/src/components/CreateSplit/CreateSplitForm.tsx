@@ -1,29 +1,24 @@
-import { useCallback, useEffect } from 'react'
-import { RequestError } from '@0xsplits/splits-sdk-react/dist/types'
 import { useCreateSplit, useCreateSplitV2 } from '@0xsplits/splits-sdk-react'
-import { useForm, FormProvider } from 'react-hook-form'
+import { RequestError } from '@0xsplits/splits-sdk-react/dist/types'
+import { sum, uniq } from 'lodash'
+import { useCallback, useEffect } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Address, decodeEventLog, Hex, Log } from 'viem'
 import { useAccount } from 'wagmi'
-import { sum, uniq } from 'lodash'
 
-import { ControllerSelector } from '../CreateSplit/ControllerSelector'
+import { splitV2o1FactoryAbi } from '@0xsplits/splits-sdk/constants/abi'
+import { SplitV2Type } from '@0xsplits/splits-sdk/types'
 import { CHAIN_INFO, SupportedChainId } from '../../constants/chains'
-import { IAddress, Recipient, ICreateSplitForm, SplitType } from '../../types'
-import RecipientSetter from '../CreateSplit/RecipientSetter'
-import NumberSelectInput from '../inputs/NumberSelectInput'
+import { IAddress, ICreateSplitForm, Recipient, SplitType } from '../../types'
 import { getNativeTokenSymbol } from '../../utils/display'
 import { getSplitRouterParams } from '../../utils/splits'
+import { ControllerSelector } from '../CreateSplit/ControllerSelector'
+import RecipientSetter from '../CreateSplit/RecipientSetter'
 import InputRow from '../inputs/InputRow'
-import Tooltip from '../util/Tooltip'
+import NumberSelectInput from '../inputs/NumberSelectInput'
 import Button from '../util/Button'
 import Link from '../util/Link'
-import { SplitV2Type } from '@0xsplits/splits-sdk/types'
-import {
-  splitMainEthereumAbi,
-  splitMainPolygonAbi,
-  splitV2o1FactoryAbi,
-} from '@0xsplits/splits-sdk/constants/abi'
-import { mainnet } from 'viem/chains'
+import Tooltip from '../util/Tooltip'
 
 const CreateSplitForm = ({
   chainId,
@@ -77,7 +72,11 @@ const CreateSplitForm = ({
     }
   }, [error, errorV2, onError])
 
-  const { isConnected, address: connectedAddress, chain } = useAccount()
+  const {
+    isConnected,
+    address: connectedAddress,
+    chainId: chain,
+  } = useAccount()
 
   const form = useForm<ICreateSplitForm>({
     mode: 'onChange',
@@ -99,42 +98,41 @@ const CreateSplitForm = ({
 
   const onSubmit = useCallback(
     async (data: ICreateSplitForm) => {
-      const executionChainId = chainId
+      // const executionChainId = chainId
       if (type === 'v1') {
-        const args = {
-          recipients: data.recipients,
-          distributorFeePercent: data.distributorFee,
-          controller: data.owner,
-        }
-
-        const events = await createSplit(args)
-        if (events) {
-          if (executionChainId === mainnet.id) {
-            const log = decodeEventLog({
-              abi: splitMainEthereumAbi,
-              data: events[0].data,
-              topics: events[0].topics,
-            })
-            if (log.eventName !== 'CreateSplit') throw new Error()
-            onSuccess &&
-              onSuccess({
-                address: log.args.split,
-                events,
-              })
-          } else {
-            const log = decodeEventLog({
-              abi: splitMainPolygonAbi,
-              data: events[0].data,
-              topics: events[0].topics,
-            })
-            if (log.eventName !== 'CreateSplit') throw new Error()
-            onSuccess &&
-              onSuccess({
-                address: log.args.split,
-                events,
-              })
-          }
-        }
+        // const args = {
+        //   recipients: data.recipients,
+        //   distributorFeePercent: data.distributorFee,
+        //   controller: data.owner,
+        // }
+        // const events = await createSplit(args)
+        // if (events) {
+        //   if (executionChainId === mainnet.id) {
+        //     const log = decodeEventLog({
+        //       abi: splitMainEthereumAbi,
+        //       data: events[0].data,
+        //       topics: events[0].topics,
+        //     })
+        //     if (log.eventName !== 'CreateSplit') throw new Error()
+        //     onSuccess &&
+        //       onSuccess({
+        //         address: log.args.split,
+        //         events,
+        //       })
+        //   } else {
+        //     const log = decodeEventLog({
+        //       abi: splitMainPolygonAbi,
+        //       data: events[0].data,
+        //       topics: events[0].topics,
+        //     })
+        //     if (log.eventName !== 'CreateSplit') throw new Error()
+        //     onSuccess &&
+        //       onSuccess({
+        //         address: log.args.split,
+        //         events,
+        //       })
+        //   }
+        // }
       } else {
         const args = {
           recipients: data.recipients,
@@ -169,7 +167,7 @@ const CreateSplitForm = ({
   )
 
   const isFullyAllocated = recipientAllocationTotal === 100
-  const isWrongChain = chain && chainId !== chain.id
+  const isWrongChain = chain && chainId !== chain
   const isButtonDisabled =
     !isConnected || isWrongChain || !isFormValid || !isFullyAllocated
 

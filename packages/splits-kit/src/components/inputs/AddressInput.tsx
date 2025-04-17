@@ -1,3 +1,5 @@
+import { XMarkIcon } from '@heroicons/react/20/solid'
+import { Dictionary } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import {
   Control,
@@ -5,21 +7,18 @@ import {
   FieldError,
   FieldValues,
   Path,
-  PathValue,
   UseFormSetError,
   UseFormSetValue,
   useFormState,
   useWatch,
 } from 'react-hook-form'
-import { XMarkIcon } from '@heroicons/react/20/solid'
-import { Dictionary } from 'lodash'
 import { isAddress } from 'viem'
 import { normalize } from 'viem/ens'
-import { useEnsName, useEnsAddress } from 'wagmi'
+import { useEnsAddress, useEnsName } from 'wagmi'
 
-import { MiniButton } from '../util/Button'
-import { shortenAddress, shortenENS } from '../../utils/address'
 import { IAddress } from '../../types'
+import { shortenAddress, shortenENS } from '../../utils/address'
+import { MiniButton } from '../util/Button'
 import SplitsAvatar from '../util/SplitsAvatar'
 
 const AddressInput = <FormType extends FieldValues>({
@@ -77,7 +76,8 @@ const AddressInput = <FormType extends FieldValues>({
   const onValidEns = useCallback(
     (address: string) => {
       setAddressEns(inputVal)
-      const typedAddress = address as PathValue<FormType, Path<FormType>>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const typedAddress = address as any
       setValue(inputName, typedAddress, { shouldValidate: true })
     },
     [inputName, inputVal, setValue],
@@ -121,7 +121,8 @@ const AddressInput = <FormType extends FieldValues>({
   ])
 
   const clearInput = useCallback(() => {
-    const typedAddress = '' as PathValue<FormType, Path<FormType>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typedAddress = '' as any
     setValue(inputName, typedAddress)
     setAddressEns('')
     if (onClearInput) onClearInput()

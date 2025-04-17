@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
-  FieldValues,
   Control,
+  FieldValues,
   Path,
   UseFormSetValue,
   useWatch,
-  PathValue,
 } from 'react-hook-form'
 
 import NumberInput from './NumberInput'
@@ -57,7 +56,8 @@ const NumberSelectInput = <FormType extends FieldValues>({
   }, [currentValInList])
 
   const clearNumber = useCallback(() => {
-    const typedValue = defaultVal as PathValue<FormType, Path<FormType>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typedValue = defaultVal as any
 
     setValue(inputName, typedValue)
     setShowCustom(false)
@@ -67,10 +67,8 @@ const NumberSelectInput = <FormType extends FieldValues>({
     if (value === 'custom') {
       setShowCustom(true)
     } else {
-      const typedValue = parseFloat(value) as PathValue<
-        FormType,
-        Path<FormType>
-      >
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const typedValue = parseFloat(value) as any
       setValue(inputName, typedValue)
     }
   }

@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { useEffect, useState } from 'react'
 import {
   Control,
-  UseFormSetValue,
-  UseFormSetError,
   FieldValues,
   Path,
-  PathValue,
+  UseFormSetError,
+  UseFormSetValue,
   useWatch,
 } from 'react-hook-form'
 
@@ -67,10 +66,8 @@ const AddressSelectInput = <FormType extends FieldValues>({
 
   const clearAddress = () => {
     setSelectedAddress(clearAddressDefaultValue)
-    const typedAddress = clearAddressDefaultValue as PathValue<
-      FormType,
-      Path<FormType>
-    >
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typedAddress = clearAddressDefaultValue as any
     setValue(inputName, typedAddress)
   }
 
@@ -78,7 +75,8 @@ const AddressSelectInput = <FormType extends FieldValues>({
     setSelectedAddress(value)
 
     const valueToSet = value === 'address' ? '' : value
-    const typedAddress = valueToSet as PathValue<FormType, Path<FormType>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typedAddress = valueToSet as any
     setValue(inputName, typedAddress)
   }
 
